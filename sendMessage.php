@@ -9,7 +9,7 @@ if(isset($_POST['send'])){
     if(isset($_POST['text']) && !empty($_POST['text'])){
 
         $text=$_POST['text'];
-        $time=time()+21600;
+        $time=time()+36000;
 
         $q="insert into `message` (`who`,`withWho`,`time`,`message`) values('$myEmail','$targetEmail','$time','$text')";
         $r=mysqli_query($conn,$q);

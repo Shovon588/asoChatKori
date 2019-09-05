@@ -74,7 +74,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){
                     <form action="" method="post">
                         <div class="form-group">
                             <label for="npass">Email</label>
-                            <input type="text" id="email" class="form-control" name="email" placeholder="Enter your email" value="">
+                            <input type="text" id="email" class="form-control" name="email" placeholder="Enter your username" value="">
                         </div>
                         <div class="form-group">
                             <label for="cpass">Password:</label>

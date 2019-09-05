@@ -149,6 +149,13 @@ if(isset($_GET['withWho'])){
 
                 <div id="text">
                     <?php
+
+                        $query="select * from message where `who`='$targetEmail' and `withWho`='$myEmail'";
+                        $result=$conn->query($query);
+                        $count=$result->num_rows;
+                        $_SESSION['count']=$count;
+
+
                         $query="select * from message where (`who`='$myEmail' and `withWho`='$targetEmail') or (`who`='$targetEmail' and `withWho`='$myEmail') order by `time` desc";
                         $result=$conn->query($query);
 

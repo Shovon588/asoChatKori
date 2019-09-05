@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 require("connectToDB.php");
 
 $myEmail=$_SESSION['email'];
@@ -34,6 +35,16 @@ if(isset($_GET['withWho'])){
                     $('#text').load('reloadTextArea.php');
                 }, 1000);
             });
+
+
+            document.onkeydown=function(evt){
+        var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
+        if(keyCode == 13)
+        {
+            //your function call here
+            document.test.submit();
+        }
+    }
     </script>
 
     
@@ -66,16 +77,21 @@ if(isset($_GET['withWho'])){
         }
 
         .container {
-        border: 2px solid #dedede;
-        background-color: #f1f1f1;
+        border: 2px solid black;
+        background-color:chartreuse;
         border-radius: 5px;
         padding: 10px;
         margin: 10px 0;
+        font-size:20px;
+        text-align: left;
         }
 
         .darker {
         border-color: #ccc;
-        background-color: #ddd;
+        background-color:floralwhite;
+        border:2px solid black;
+        font-size:20px;
+        text-align: right;
         }
 
         .container::after {
@@ -114,7 +130,9 @@ if(isset($_GET['withWho'])){
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+               
+            </div>
 
             
             <div class="col-sm-6">
@@ -143,7 +161,7 @@ if(isset($_GET['withWho'])){
 
                                 if($who==$myEmail){ ?>
                                     <div class="container darker">
-                                        <img src="myth.jpg" alt="Avatar" class="right" style="width:100%;">
+                                        <img src="female.jpg" alt="Avatar" class="right" style="width:100%;">
                                         <?php echo "".$msg; ?>
                                         <span class="time-left"><?php echo "" . date("M d h:i A", $time); ?></span>
                                     </div>
@@ -151,7 +169,7 @@ if(isset($_GET['withWho'])){
                             <?php }
                                 else{ ?>
                                     <div class="container">
-                                        <img src="myth.jpg" alt="Avatar" style="width:100%;">
+                                        <img src="male.png" alt="Avatar" style="width:100%;">
                                         <?php echo "".$msg; ?>
                                         <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?> </span>
                                     </div>

@@ -13,7 +13,7 @@ if(isset($_POST['send'])){
 
         $q="insert into `message` (`who`,`withWho`,`time`,`message`) values('$myEmail','$targetEmail','$time','$text')";
         $r=mysqli_query($conn,$q);
-        header("Location: temp.php");
+        header("Location: textArena.php");
     }
 }
 

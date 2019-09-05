@@ -92,7 +92,7 @@ $myEmail = $_SESSION['email'];
                                     echo "<tr>
                                             <td>".$name."</td>
                                             <td>".$email."</td>
-                                            <td>". "<a href='textArena.php?who=$myEmail&withWho=$email' style='font-size=30px'><i class='fa fa-envelope fa-2x' data-toggle='tooltip' title='Add friend'></i></a>" ."</td>
+                                            <td>". "<a href='textArena.php?withWho=$email' style='font-size=30px'><i class='fa fa-envelope fa-2x' data-toggle='tooltip' title='Add friend'></i></a>" ."</td>
                                             </tr>";
 
                                 }

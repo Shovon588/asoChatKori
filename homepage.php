@@ -92,7 +92,7 @@ $myEmail = $_SESSION['email'];
                                     echo "<tr>
                                             <td>".$name."</td>
                                             <td>".$email."</td>
-                                            <td>". "<a href='textArena.php?withWho=$email' style='font-size=30px'><i class='fa fa-envelope fa-2x' data-toggle='tooltip' title='Add friend'></i></a>" ."</td>
+                                            <td>". "<a href='textArena.php?withWho=$email' style='font-size=30px'><i class='fa fa-envelope fa-2x' data-toggle='tooltip' title='Text friend'></i></a>" ."</td>
                                             </tr>";
 
                                 }
@@ -267,7 +267,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <!--end of col-->
                     <div class="col">
-                        <input class="form-control form-control-lg form-control-borderless" type="email" name="email" placeholder="Enter email to search">
+                        <input class="form-control form-control-lg form-control-borderless" type="text" name="email" placeholder="Enter email to search">
                     </div>
                     <!--end of col-->
                     <div class="col-auto">

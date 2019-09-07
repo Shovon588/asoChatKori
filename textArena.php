@@ -45,25 +45,9 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
            $(document).ready(
             function() {
                 setInterval(function() {
-                    $('#text').load('reloadTextArea.php');
+                    $('#text').load('reloadTextArena.php');
                 }, 1000);
             });
-
-            
-        $(document).ready(function() {
-        $('#textarea').keydown(function() {
-            var message = $("textarea").val();
-            if (event.keyCode == 13) {
-            if (message == "") {
-                alert("Enter Some Message First.");
-            } else {
-                $('#form').submit();
-            }
-        $("textarea").val('');
-        return false;
-        }
-        });
-        });
 
     </script>
 
@@ -112,7 +96,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
         background-color:floralwhite;
         border:2px solid black;
         font-size:20px;
-        text-align: right;
+        text-align: left;
         }
 
         .container::after {
@@ -138,11 +122,13 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
         .time-right {
         float: right;
         color: #aaa;
+        font-size: 15px;
         }
 
         .time-left {
         float: left;
         color: #999;
+        font-size: 15px;
         }
     </style>
 
@@ -189,16 +175,14 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
 
                                 if($who==$myEmail){ ?>
                                     <div class="container darker">
-                                        <img src="female.jpg" alt="Avatar" class="right" style="width:100%;">
-                                        <?php echo "".$msg; ?>
+                                        <?php echo "<p style:text-align:justify;>".$msg."</p>"; ?>
                                         <span class="time-left"><?php echo "" . date("M d h:i A", $time); ?></span>
                                     </div>
                                
                             <?php }
                                 else{ ?>
                                     <div class="container">
-                                        <img src="male.png" alt="Avatar" style="width:100%;">
-                                        <?php echo "".$msg; ?>
+                                        <?php echo "<p style:text-align:justify;>".$msg."</p>"; ?>
                                         <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?> </span>
                                     </div>
 
@@ -223,6 +207,22 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
 
 
     <script>
+                    
+                    $(document).ready(function() {
+        $('#textarea').keydown(function() {
+            var message = $("textarea").val();
+            if (event.keyCode == 13) {
+            if (message == "") {
+                alert("Enter Some Message First.");
+            } else {
+                $('#form').submit();
+            }
+        $("textarea").val('');
+        return false;
+        }
+        });
+        });
+
 
 </script>
     

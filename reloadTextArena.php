@@ -31,16 +31,14 @@
 
             if($who==$myEmail){ ?>
                 <div class="container darker">
-                    <img src="female.jpg" alt="Avatar" class="right" style="width:100%;">
-                    <?php echo "".$msg; ?>
-                    <span class="time-left"><?php echo "" . date("M d h:i A", $time); ?></span>
+                <?php echo "<a style='text-align:left;'>".$msg."</a>"; ?>
+                 <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?></span>
                 </div>
                                
                 <?php }
                     else{ ?>
                         <div class="container">
-                            <img src="male.png" alt="Avatar" style="width:100%;">
-                            <?php echo "".$msg; ?>
+                        <?php echo "<a style='text-align:left;'>".$msg."</a>"; ?>
                             <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?> </span>
                         </div>
 

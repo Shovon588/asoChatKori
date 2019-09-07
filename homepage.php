@@ -136,7 +136,7 @@ if (isset($_GET['who'])) {
             </div>
         </center>
     <?php
-    header( "refresh:3; url=homepage.php" ); 
+    header( "refresh:1; url=homepage.php" ); 
         }
         else{
             echo"".mysqli_error($conn);

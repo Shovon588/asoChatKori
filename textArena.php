@@ -10,6 +10,17 @@ if(isset($_GET['withWho'])){
     $_SESSION['targetEmail']=$targetEmail;
 }
 
+
+if(isset($_POST['text']) && !empty($_POST['text'])){
+    $text=$_POST['text'];
+    $time=time()+36000;
+
+    $q="insert into `message` (`who`,`withWho`,`time`,`message`) values('$myEmail','$targetEmail','$time','$text')";
+    $r=mysqli_query($conn,$q);
+    
+}
+
+
 ?>
 
 
@@ -27,6 +38,8 @@ if(isset($_GET['withWho'])){
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript"src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 
     <script>
            $(document).ready(
@@ -36,18 +49,25 @@ if(isset($_GET['withWho'])){
                 }, 1000);
             });
 
-
-            document.onkeydown=function(evt){
-        var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-        if(keyCode == 13)
-        {
-            //your function call here
-            document.test.submit();
+            
+        $(document).ready(function() {
+        $('#textarea').keydown(function() {
+            var message = $("textarea").val();
+            if (event.keyCode == 13) {
+            if (message == "") {
+                alert("Enter Some Message First.");
+            } else {
+                $('#form').submit();
+            }
+        $("textarea").val('');
+        return false;
         }
-    }
+        });
+        });
+
     </script>
 
-    
+
 
     <style>
         #text{
@@ -66,12 +86,13 @@ if(isset($_GET['withWho'])){
             background-image: url("image.jpg");
         }
 
-        textarea{
+        #textarea{
             width: 100%;
             height:10vh;
             padding: 12px 20px;
             box-sizing: border-box;
-            background-color: #f8f8f8;
+            border:none;
+            background-color: blanchedalmond;
             font-size: 16px;
             resize: none;
         }
@@ -138,9 +159,9 @@ if(isset($_GET['withWho'])){
             <div class="col-sm-6">
 
             <center><div id="type" style="margin-bottom:10vh">
-                        <form action="sendMessage.php" method="post">
-                            <textarea name="text" required></textarea>
-                            <button class="btn btn-success" style="float: right;"  name="send">Send</button>
+                        <form action="" method="post" id="form" name="form">
+                            <textarea name="text" required autofocus id="textarea"></textarea>
+                            <button class="btn btn-success" style="float: right;margin-bottom:5%"  name="send">Send</button>
                         </form>
 
                     </div>
@@ -199,6 +220,11 @@ if(isset($_GET['withWho'])){
 
         </div>
     </div>
+
+
+    <script>
+
+</script>
     
 </body>
 </html>

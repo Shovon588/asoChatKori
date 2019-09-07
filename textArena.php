@@ -123,12 +123,14 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
         float: right;
         color: #aaa;
         font-size: 15px;
+        color: black;
         }
 
         .time-left {
         float: left;
         color: #999;
         font-size: 15px;
+        color: black;
         }
     </style>
 
@@ -176,7 +178,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
                                 if($who==$myEmail){ ?>
                                     <div class="container darker">
                                         <?php echo "<p style:text-align:justify;>".$msg."</p>"; ?>
-                                        <span class="time-left"><?php echo "" . date("M d h:i A", $time); ?></span>
+                                        <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?></span>
                                     </div>
                                
                             <?php }

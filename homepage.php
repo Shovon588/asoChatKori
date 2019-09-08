@@ -6,8 +6,6 @@ require("connectToDB.php");
 
 $myEmail = $_SESSION['email'];
 
-
-
 ?>
 
 
@@ -22,7 +20,6 @@ $myEmail = $_SESSION['email'];
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!------ Include the above in your HEAD tag ---------->
 
 <style>
     .form-control-borderless {
@@ -159,7 +156,7 @@ if (isset($_GET['who'])) {
                 </div>
             </center>
         <?php
-        header( "refresh:3; url=homepage.php" ); 
+        header( "refresh:1; url=homepage.php" ); 
         }
     }
 }

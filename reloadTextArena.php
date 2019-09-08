@@ -22,6 +22,14 @@
     $result=$conn->query($query);
 
 
+    $q="select * from userInfo where `email`='$targetEmail'";
+    $r=$conn->query($q);
+
+    while($row=$r->fetch_assoc()){
+        $senderName=$row['name'];
+    }
+
+
     if($result->num_rows>0){
         while($row=$result->fetch_assoc()){
             $who=$row['who'];
@@ -31,6 +39,7 @@
 
             if($who==$myEmail){ ?>
                 <div class="container darker">
+                <?php echo "<b><a style='text-align:left;font-size:20px;color:darkorange'>"."You"."</a></b>"; ?><br>
                 <?php echo "<a style='text-align:left;'>".$msg."</a>"; ?>
                  <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?></span>
                 </div>
@@ -38,6 +47,7 @@
                 <?php }
                     else{ ?>
                         <div class="container">
+                        <?php echo "<b><a style='text-align:left;font-size:20px;color:Black'>".$senderName."</a></b>"; ?><br>
                         <?php echo "<a style='text-align:left;'>".$msg."</a>"; ?>
                             <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?> </span>
                         </div>

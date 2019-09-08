@@ -31,7 +31,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Text Arena</title>
 
     
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -39,6 +39,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript"src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha314-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
 
     <script>
@@ -140,6 +141,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3">
+            <center><a href="homepage.php"><i style="color:black" class='fa fa-home fa-5x' data-toggle='tooltip' title='Return home'></i></a><center>
                
             </div>
 
@@ -168,6 +170,13 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
                         $query="select * from message where (`who`='$myEmail' and `withWho`='$targetEmail') or (`who`='$targetEmail' and `withWho`='$myEmail') order by `time` desc";
                         $result=$conn->query($query);
 
+                        $q="select * from userInfo where `email`='$targetEmail'";
+                        $r=$conn->query($q);
+                    
+                        while($row=$r->fetch_assoc()){
+                            $senderName=$row['name'];
+                        }
+
                         if($result->num_rows>0){
                             while($row=$result->fetch_assoc()){
                                 $who=$row['who'];
@@ -177,6 +186,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
 
                                 if($who==$myEmail){ ?>
                                     <div class="container darker">
+                                    <?php echo "<b><a style='text-align:left;font-size:20px;color:darkorange'>"."You"."</a></b>"; ?><br>
                                         <?php echo "<p style:text-align:justify;>".$msg."</p>"; ?>
                                         <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?></span>
                                     </div>
@@ -184,6 +194,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
                             <?php }
                                 else{ ?>
                                     <div class="container">
+                                    <?php echo "<b><a style='text-align:left;font-size:20px;color:Black'>".$senderName."</a></b>"; ?><br>
                                         <?php echo "<p style:text-align:justify;>".$msg."</p>"; ?>
                                         <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?> </span>
                                     </div>

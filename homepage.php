@@ -126,14 +126,14 @@ if (isset($_GET['who'])) {
         $query = "INSERT INTO `friend` (`who`,`withWho`,`time`) VALUES('$who','$withWho',$time)";
         $result = mysqli_query($conn, $query);
 
-        if($result){?>
+        if($result){ ?>
         <center>
             <div class="alert alert-success" style="width:65%;">
                 <strong>Friend added. Wait for response.</strong>
             </div>
         </center>
     <?php
-    header( "refresh:1; url=homepage.php" ); 
+    header( "Refresh:1; url=homepage.php" ); 
         }
         else{
             echo"".mysqli_error($conn);
@@ -156,7 +156,7 @@ if (isset($_GET['who'])) {
                 </div>
             </center>
         <?php
-        header( "refresh:1; url=homepage.php" ); 
+        header( "Refresh:1; url=homepage.php" ); 
         }
     }
 }

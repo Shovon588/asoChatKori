@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 require("connectToDB.php");
 
 $myEmail=$_SESSION['email'];
@@ -17,13 +17,34 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
 
     $q="insert into `message` (`who`,`withWho`,`time`,`message`) values('$myEmail','$targetEmail','$time','$text')";
     $r=mysqli_query($conn,$q);
+
+    header("Refresh:.1");
     
 }
 
+    $query="select * from `userInfo` where `email`='$targetEmail'";
+    $result=mysqli_query($conn,$query);
+
+    while($row=$result->fetch_assoc()){
+        $senderName=$row['name'];
+    }
+
+    $query="select * from `friend` where `who`='$myEmail' and `withWho`='$targetEmail'";
+    $result=mysqli_query($conn,$query);
+    while($row=$result->fetch_assoc()){
+        $addTime=$row['time'];
+    }
+
+
+    $query="select * from `message` where `who`='$myEmail' and `withwho`='$targetEmail'";
+    $result=mysqli_query($conn,$query);
+    $messageSent=$result->num_rows;
+
+    $query="select * from `message` where `who`='$targetEmail' and `withwho`='$myEmail'";
+    $result=mysqli_query($conn,$query);
+    $messageReceived=$result->num_rows;
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,13 +62,18 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha314-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
+    
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 
     <script>
            $(document).ready(
             function() {
                 setInterval(function() {
                     $('#text').load('reloadTextArena.php');
-                }, 1000);
+                }, 5000);
             });
 
     </script>
@@ -65,20 +91,15 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
             width:80%;
         }
 
-        body{
-            margin-top:5vh;
-            margin-bottom:5vh;
-            background-image: url("image.jpg");
-        }
-
         #textarea{
             width: 100%;
             height:10vh;
             padding: 12px 20px;
             box-sizing: border-box;
-            border:none;
-            background-color: blanchedalmond;
+            border:2px solid black;
+            background-color:mintcream;
             font-size: 16px;
+            color:black;
             resize: none;
         }
 
@@ -138,19 +159,28 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
 
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid"> 
         <div class="row">
-            <div class="col-sm-3">
-            <center><a href="homepage.php"><i style="color:black" class='fa fa-home fa-5x' data-toggle='tooltip' title='Return home'></i></a><center>
-               
+            <div class="col-sm-3" style="background-color:burlywood;margin-bottom:5vh;">
+                <center><a href="homepage.php"><i style="color:black;margin-top:5vh;" class='fa fa-home fa-5x' data-toggle='tooltip' title='Return home'></i></a><br>
+
+                <button data-toggle="collapse" data-target="#details" class="btn btn-danger" style="margin-top:2vh;margin-bottom:2vh" >View details</button>
+
+                    <section id="details" class="collapse">
+                                        
+                    <a style="font-size:20px">Name: <?php echo "" .$senderName; ?></a><br>
+                    <a style="font-size:20px">Added on: <?php echo "" . date("M d h:i A", $addTime); ?></a><br>
+                    <a style="font-size:20px">Text sent: <?php echo "" .$messageSent; ?></a><br>
+                    <a style="font-size:20px">Text Received: <?php echo "" .$messageReceived; ?></a></center>
+                    </section>
             </div>
 
             
             <div class="col-sm-6">
 
-            <center><div id="type" style="margin-bottom:10vh">
+            <center><div id="type" style="margin-bottom:10vh;margin-top:5vh">
                         <form action="" method="post" id="form" name="form">
-                            <textarea name="text" required autofocus id="textarea"></textarea>
+                            <textarea name="text" required autofocus id="textarea" placeholder="Type your message..."></textarea>
                             <button class="btn btn-success" style="float: right;margin-bottom:5%"  name="send">Send</button>
                         </form>
 
@@ -170,13 +200,6 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
                         $query="select * from message where (`who`='$myEmail' and `withWho`='$targetEmail') or (`who`='$targetEmail' and `withWho`='$myEmail') order by `time` desc";
                         $result=$conn->query($query);
 
-                        $q="select * from userInfo where `email`='$targetEmail'";
-                        $r=$conn->query($q);
-                    
-                        while($row=$r->fetch_assoc()){
-                            $senderName=$row['name'];
-                        }
-
                         if($result->num_rows>0){
                             while($row=$result->fetch_assoc()){
                                 $who=$row['who'];
@@ -185,17 +208,17 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
                                 $msg=$row['message'];
 
                                 if($who==$myEmail){ ?>
-                                    <div class="container darker">
-                                    <?php echo "<b><a style='text-align:left;font-size:20px;color:darkorange'>"."You"."</a></b>"; ?><br>
-                                        <?php echo "<p style:text-align:justify;>".$msg."</p>"; ?>
+                                     <div class="container darker">
+                                        <?php echo "<b><a style='text-align:left;font-size:20px;color:darkorange'>"."You"."</a></b>"; ?><br>
+                                        <?php echo "<a style='text-align:left;'>".$msg."</a>"; ?>
                                         <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?></span>
                                     </div>
                                
                             <?php }
                                 else{ ?>
-                                    <div class="container">
-                                    <?php echo "<b><a style='text-align:left;font-size:20px;color:Black'>".$senderName."</a></b>"; ?><br>
-                                        <?php echo "<p style:text-align:justify;>".$msg."</p>"; ?>
+                                   <div class="container">
+                                        <?php echo "<b><a style='text-align:left;font-size:20px;color:Black'>".$senderName."</a></b>"; ?><br>
+                                        <?php echo "<a style='text-align:left;'>".$msg."</a>"; ?>
                                         <span class="time-right"><?php echo "" . date("M d h:i A", $time); ?> </span>
                                     </div>
 
@@ -213,7 +236,7 @@ if(isset($_POST['text']) && !empty($_POST['text'])){
             </div>
 
 
-            <div class="col-sm-3"></div>
+            <div class="col-sm-3" style="background-color:burlywood"></div>
 
         </div>
     </div>
